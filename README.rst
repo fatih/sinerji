@@ -1,4 +1,4 @@
-sinerji - a smart fronted for synergy written in pyqt
+sinerji - a smart GUI for synergy written in pyqt
 =====================================================
 
 Overview
