@@ -31,8 +31,9 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
         self.closeButton.setFocusPolicy(Qt.NoFocus)
         self.applyButton.setFocusPolicy(Qt.NoFocus)
 
+        # Setting Trayicon
         self.trayIcon = QSystemTrayIcon(QIcon(":/icon.png"), self)
-        self.trayActions() ## Own custom function
+        self.trayActions()
         self.connect(self.trayIcon, SIGNAL('activated(QSystemTrayIcon::ActivationReason)'), self.trayActivated)
         self.trayIcon.setContextMenu(self.trayMenu)
         self.trayIcon.setToolTip(u"Sinerji")
@@ -48,9 +49,7 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
         self.completedBottom = None
         self.completedRight = None
         self.completedLeft = None
-        
-        
-        
+
         self.connected = False
         self.browser = None
         self.bus = None
@@ -451,10 +450,10 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
         ## Connecting to dbus and avahi,
         self.connectingWorkstation.connectDbus()
         self.connectingWorkstation.connectAvahi()
-        ## Starting searching for domain for _workstation._tcp and _sinerji._tcp. 
+        ## Starting searching for domain for _workstation._tcp and _sinerji._tcp
         self.connectingWorkstation.connect()
         self.connectingSinerji.connect()
-        
+
         QTimer.singleShot(500, self.searchClient)
         self.searched = True
         self.searchInterval()

@@ -94,7 +94,7 @@ class avahiSinerji:
 
         else:
             pass
-        
+
 
 ##############################################################
 ################# Connecting to interfaces ###################
@@ -143,7 +143,7 @@ class avahiSinerji:
 
         if self.serviceBrowser:
             return
-        
+
         object_path = self.server.ServiceBrowserNew(avahi.IF_UNSPEC,avahi.PROTO_UNSPEC, self.stype, 'local', dbus.UInt32(0))
 
         self.serviceBrowser = dbus.Interface(self.bus.get_object(self.avahi.DBUS_NAME, \

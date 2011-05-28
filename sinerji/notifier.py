@@ -32,7 +32,7 @@ class Notifier(QObject):
             else:
                 pass
 
-    def close_handler(self ,id):
+    def close_handler(self ,id, button):
         #If notification popup is closed
         self.emit(SIGNAL("rejectServer"), ())
 
