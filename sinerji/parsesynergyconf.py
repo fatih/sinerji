@@ -15,15 +15,15 @@ class parseSynergyConf:
     def parsing(self, synergyfile):
         for line in open(synergyfile, "r").readlines():
             self.parsedfileset.add(line.strip())
-        
+
         ### Remove end, section and newlines
         self.parsedfileset.remove("section: screens")
         self.parsedfileset.remove("section: links")
         self.parsedfileset.remove("end") 
         self.parsedfileset.remove("") 
         self.parsedfilelist = list(self.parsedfileset) 
-        
-        ### Removes lines which ends with ":" 
+
+        ### Removes lines which ends with ":"
         for names in self.parsedfilelist[:]:
             if names.endswith(":"):
                 self.parsedfilelist.remove(names)

@@ -4,7 +4,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import ui_disconnect
-import sys 
+import sys
 
 import gettext
 __trans = gettext.translation('sinerji', fallback=True)
@@ -16,9 +16,7 @@ class Disconnect(QDialog, ui_disconnect.Ui_Disconnect):
         self.setupUi(self)
         self.disconnectButton.setFocusPolicy(Qt.NoFocus)
         self.okButton.setFocusPolicy(Qt.NoFocus)
-    
 
-    
     def setText(self, string):
         self.clientTextLabel.setText(string)
 
