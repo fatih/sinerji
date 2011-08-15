@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-
 import os, sys, re
 import platform, time
 from socket import gethostname
@@ -109,7 +108,7 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
         self.actionSearch = QAction(QIcon(":/search.png"),_("Search"), self)
         self.connect(self.actionSearch, SIGNAL("activated()"), self.searchClient)
         self.trayMenu.addAction(self.actionSearch)
-        
+
         self.actionAbout = QAction(QIcon(":/about.png"),_("About"), self)
         self.connect(self.actionAbout, SIGNAL("activated()"), self.about)
         self.trayMenu.addAction(self.actionAbout)
@@ -119,7 +118,7 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
         self.actionQuit = QAction(QIcon(":/quit.png"), _("Quit"), self)
         self.connect(self.actionQuit, SIGNAL("activated()"), self.killSynergys)
         self.trayMenu.addAction(self.actionQuit)
-        
+
         ## for Client
         self.actionDisconnect = QAction(QIcon(":/disconnect.png"),_("Disconnect"), self)
         self.connect(self.actionDisconnect, SIGNAL("activated()"), self.disconnect)
@@ -139,8 +138,6 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
                     self.clientDisconnect.showNormal()
                 else:
                     self.clientDisconnect.hide()
-
-
 
 
     def about(self):
@@ -353,12 +350,11 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
 
             if os.path.exists(self.synergyConf):
                 os.remove(self.synergyConf)
-            
+
             createsynergyconf.screens(self.confdomain)
             createsynergyconf.links(self.confdomain)
 
             ## Starting synergys
-
             self.cmdList = QStringList()
             self.cmdList.append("-f")
             self.cmdList.append("--config")
@@ -392,6 +388,8 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
         self.parseReadData(self.text)
 
     def parseReadData(self, data):
+        #TODO: Output of new synergy has been changed. This function needs a rewrite
+
         self.patternFound = 'NOTE:.*client "(.*)" has connected'
         self.patternRemoved = 'NOTE:.*client "(.*)" has disconnected'
         self.patternFoundClient = 'NOTE:.*connected to server'
@@ -406,7 +404,6 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
             self.notifier.show(self.iconNotify, "Sinerji", _("Computer %s is sharing its screen") % clientFound)
             self.trayIcon.setToolTip(_("Synergy server is connected"))
             self.serverState = True
-
             self.clientDisconnect.setText(_("Your are connected to %s") % clientFound)
 
         if m:
@@ -417,6 +414,7 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
             self.trayMenu.removeAction(self.actionDisconnect)
             self.serverState = None
             self.process.kill()
+
         if p:
             self.trayMenu.insertAction(self.actionAbout, self.actionDisconnect) ## Add actionDisconnect before self.actionAbout
             self.trayMenu.removeAction(self.actionManage)
@@ -426,6 +424,7 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
             self.clientDisconnect.setText(_("%s is connected to you") % self.hostname)
             self.trayIcon.setToolTip(_("%s is connected to you.") % self.hostname)
             self.timer.stop()
+
         if o:
             self.trayMenu.insertAction(self.actionAbout, self.actionManage) ## Add actionDisconnect before self.actionAbout
             self.trayMenu.insertAction(self.actionAbout, self.actionSearch) ## Add actionDisconnect before self.actionAbout
@@ -458,14 +457,10 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
         self.searched = True
         self.searchInterval()
 
-
-
     def searchInterval(self):
         self.timer = QTimer()
         self.connect(self.timer, SIGNAL("timeout()"), self.searchClient)
         self.timer.start(30000)
-
-
 
     def updateUi(self):
         ### Look for synergy.conf, if exists parse it and fill the comboBoxes

@@ -206,7 +206,7 @@ class avahiSinerji:
 
     def clientTxt(self):
         return self.avahi.dict_to_txt_array(self.domainlist)
-    
+
     def createService(self):
         try:
             if not self.entrygroup:
@@ -280,7 +280,7 @@ if __name__ == "__main__":
     ### Test code, it creates the "_sinerji._tcp" 
     app = QApplication(sys.argv)
     DBusQtMainLoop(set_as_default=True)
-    
+
     instance = avahiSinerji(gethostname(), "_sinerji._tcp")
     instance.connectDbus()
     instance.connectAvahi()
@@ -289,6 +289,3 @@ if __name__ == "__main__":
         app.exec_()
     except KeyboardInterrupt:
         pass
-
-
-
