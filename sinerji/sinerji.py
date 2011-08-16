@@ -389,11 +389,14 @@ class SinerjiGui(QDialog, ui_sinerjigui.Ui_SinerjiGui):
 
     def parseReadData(self, data):
         #TODO: Output of new synergy has been changed. This function needs a rewrite
+        self.patternFound = '.*NOTE:.*client "(.*)" has connected'
+        self.patternRemoved = '.*NOTE:.*client "(.*)" has disconnected'
+        self.patternFoundClient = '.*NOTE:.*connected to server'
+        self.patternRemovedClient = '.*NOTE:.*disconnected from server'
 
-        self.patternFound = 'NOTE:.*client "(.*)" has connected'
-        self.patternRemoved = 'NOTE:.*client "(.*)" has disconnected'
-        self.patternFoundClient = 'NOTE:.*connected to server'
-        self.patternRemovedClient = 'NOTE:.*disconnected from server'
+        # Enable synergc stdoutput if started trough terminal
+        print data
+
         n = re.match(self.patternFound, str(data), re.I)
         m = re.match(self.patternRemoved, str(data), re.I)
         p = re.match(self.patternFoundClient, str(data), re.I)
