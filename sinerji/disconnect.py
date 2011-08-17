@@ -21,7 +21,7 @@ class Disconnect(QDialog, ui_disconnect.Ui_Disconnect):
         self.clientTextLabel.setText(string)
 
     def closeEvent(self, event):
-    ### Override so that closing it doesn't quit the app
+    ### Override so that closing it doesn't quit the application
         event.ignore()
         self.hide()
 
